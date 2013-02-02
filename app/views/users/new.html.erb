@@ -1,0 +1,35 @@
+
+<div id="signup" class="span6 offset3" >
+  <%= form_for @user do |form| %>
+    <% if @user.errors.any? %>
+      <div class="errors well well-large" >
+	<h4>There were errors in your previous submission. Try again.</h4>
+	<ul>
+	  <% @user.errors.full_messages.each do |message| %>
+	    <li><%= message %></li>
+	  <% end %>
+	</ul>
+      </div>
+    <% end %>
+    <fieldset>  
+      <div class="field" >
+	<%= f.label :firstname %>
+	<%= f.text_field :firstname %>
+      </div>
+      <div class="field" >
+	<%= f.label :lastname %>
+	<%= f.text_field :lastname %>
+      </div>
+      <div class="field" >
+	<%= f.label :email %>
+	<%= f.text_field :email %>
+      </div>
+      <div class="field" >
+	<%= f.label :password %>
+	<%= f.text_field :password %>
+      </div>
+      # TODO add role based role assignment selectors here
+      <div class="actions" ><%= f.submit "Sign Up" %></div>
+    </fieldset>
+  <% end %>
+</div>

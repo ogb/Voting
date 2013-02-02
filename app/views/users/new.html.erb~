@@ -1,0 +1,10 @@
+
+<div id="signup" class="span8 offset2" >
+  <%= form_for @user do |form| %>
+    <% if @user.errors.any? %>
+      
+
+    <% end %>
+  <% end %>
+
+</div>
