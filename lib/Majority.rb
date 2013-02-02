@@ -5,5 +5,4 @@ class Majority < VotingAlgorithm
 
 
 
-
 end

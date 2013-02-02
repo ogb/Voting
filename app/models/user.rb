@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+
+  has_many :ballots
+  has_many :votes, :through => :ballots
   
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   ROLES = %w[voter moderator administrator]
