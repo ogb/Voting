@@ -1,11 +1,12 @@
-Interation 1 of the first project for CIS 422
+
+<h3>Interation 1 of the first project for CIS 422</h3>
 
 
-Todos:
-
-Write REST functions for votes and ballots, including views.
-Write REST function for user/edit, including the view
-Write voting algorithms
-Create relations between models and migrate db changes
-Create index on votes/title and ballot/title
-
+<strong>Todos:</strong>
+<ul>
+<li>Write REST functions for votes and ballots, including views.</li>
+<li>Write REST function for user/edit, including the view</li>
+<li>Write voting algorithms</li>
+<li>Create relations between models and migrate db changes</li>
+<li>Create index on votes/title and ballot/title</li>
+</ul>
