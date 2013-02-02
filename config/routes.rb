@@ -3,11 +3,11 @@ VotingSite::Application.routes.draw do
   resources :votes
   resources :ballots
   resources :users
-  resources :sessions
+  resources :sessions, only: [:new, :create, :destroy]
 
-  # TODO get "signup", to: "users#new", as: "signup"
-  get "/login", to: "sessions#new", as: "login"
-  get "/logout", to: "sessions#destroy", as: "logout"
+  # TODO match "signup", to: "users#new", as: "signup"
+  match "/login", to: "sessions#new", as: "login"
+  match "/logout", to: "sessions#destroy", as: "logout"
 
   # TODO use subroutes within user for ballots and voteoptions
 

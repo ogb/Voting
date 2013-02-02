@@ -11,8 +11,12 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }
   
   before_save { |user| user.email = email.downcase }
+  
+  
 
 
+
+  # use a bitmask to store the roles
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
   end

@@ -4,19 +4,21 @@ class SessionsController < ApplicationController
   end
   
   def create
+    # upon login
     user = User.find_by_email(params[:email])
     if user and user.authenticate(params[:password])
       session[:user_id] = user.id
       # TODO redirect to page depending on role
       redirect_to <>, notice: "Successfully logged in"
     else
-      flash.now.alert = "Your login information is invalid. Try again."
+      flash.now[:error] = "Your login information is invalid. Try again."
+      render "new"
     end
   end
   
-  def destory
+  def destroy
     session[:user_id] = nil
-    redirect_to root_url, notice: "Successfully logged out"
+    redirect_to root_url, notice: "Logged out"
   end
   
   
