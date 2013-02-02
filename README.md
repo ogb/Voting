@@ -7,4 +7,5 @@ Write REST functions for votes and ballots, including views.
 Write REST function for user/edit, including the view
 Write voting algorithms
 Create relations between models and migrate db changes
+Create index on votes/title and ballot/title
 
