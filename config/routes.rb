@@ -1,15 +1,17 @@
-VotingSite::Application.routes.draw do
- 
+VotingSite::Application.routes.draw do 
+  
+  resources :votes
+  resources :ballots
   resources :users
   resources :sessions
 
   # TODO get "signup", to: "users#new", as: "signup"
-  get "login", to: "sessions#new", as: "login"
-  get "logout", to: "sessions#destroy", as: "logout"
+  get "/login", to: "sessions#new", as: "login"
+  get "/logout", to: "sessions#destroy", as: "logout"
 
   # TODO use subroutes within user for ballots and voteoptions
 
-  root to: 'sessions#new'
+  root to: "sessions#new"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
