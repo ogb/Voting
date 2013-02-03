@@ -15,6 +15,8 @@ class BallotsController < ApplicationController
     @ballot = Ballot.find_by_id(params[:id])
     # render a page with a single ballot on it
     
+    
+    
   end
   
   def new
