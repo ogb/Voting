@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
 
-  has_many :ballots
-  has_many :votes, :through => :ballots
+  has_and_belongs_to_many :ballots
   
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   ROLES = %w[voter moderator administrator]
@@ -25,9 +24,7 @@ class User < ActiveRecord::Base
   end
 
   def roles
-    ROLES.reject do |r|
-      ((roles_mask || 0) & 2**ROLES.index(r)).zero?
-    end
+    ROLES.reject { |r| ((roles_mask || 0) & 2**ROLES.index(r)).zero? }
   end
   
   def is?(role)
