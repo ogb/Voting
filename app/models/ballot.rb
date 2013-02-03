@@ -6,9 +6,9 @@ class Ballot < ActiveRecord::Base
   has_many :candidates, dependent: :destroy
   has_many :votes, through: :candidates
 
-  attr_accessible :algorithm, :description, :end_time, :title, :type
+  attr_accessible :algorithm, :description, :end_time, :title, :type, :public_results
   
-  
+  validates :title, presence: true
   
   
   def winner
