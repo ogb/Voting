@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   has_and_belongs_to_many :ballots
+  has_many :votes, dependent: :destroy
   
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   ROLES = %w[voter moderator administrator]

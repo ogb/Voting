@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130203011204) do
+ActiveRecord::Schema.define(:version => 20130203084258) do
 
   create_table "ballots", :force => true do |t|
     t.string   "title"
@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(:version => 20130203011204) do
   add_index "ballots_users", ["ballot_id", "user_id"], :name => "index_ballots_users_on_ballot_id_and_user_id"
   add_index "ballots_users", ["user_id", "ballot_id"], :name => "index_ballots_users_on_user_id_and_ballot_id"
 
+  create_table "candidates", :force => true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.integer  "ballot_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "firstname"
     t.string   "lastname"
@@ -42,19 +50,11 @@ ActiveRecord::Schema.define(:version => 20130203011204) do
   end
 
   create_table "votes", :force => true do |t|
-    t.string   "title"
+    t.integer  "user_id"
     t.integer  "value"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "ballot_id"
+    t.integer  "candidate_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
-
-  create_table "votes_users", :force => true do |t|
-    t.integer "vote_id"
-    t.integer "user_id"
-  end
-
-  add_index "votes_users", ["user_id", "vote_id"], :name => "index_votes_users_on_user_id_and_vote_id"
-  add_index "votes_users", ["vote_id", "user_id"], :name => "index_votes_users_on_vote_id_and_user_id"
 
 end

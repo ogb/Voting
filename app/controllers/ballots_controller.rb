@@ -1,7 +1,6 @@
 class BallotsController < ApplicationController
 
-  # TODO add all functions to the array
-  before_filter :authorize, only: [:index, :show, :edit]
+  before_filter :authorize, only: [:index, :show, :edit, :new]
 
   def index
     @ballots = current_user.ballots
@@ -9,6 +8,8 @@ class BallotsController < ApplicationController
   
   def show
     @ballot = Ballot.find_by_id(params[:id])
+    
+
   end
   
   def new

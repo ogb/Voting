@@ -3,16 +3,16 @@ require "lib/VotingAlgorithms"
 class Ballot < ActiveRecord::Base
   
   has_and_belongs_to_many :users
-  has_many :votes
+  has_many :candidates, dependent: :destroy
+  has_many :votes, through: :candidates
 
   attr_accessible :algorithm, :description, :end_time, :title, :type
   
   
   
   
-  
   def winner
-    VotingAlgorithms.new(:majority).winner(self.votes)
+    VotingAlgorithms.new(:majority).winner(self.cadidates)
   end
 
 end
