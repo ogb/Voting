@@ -1,16 +1,10 @@
 class BallotsController < ApplicationController
 
   # TODO add all functions to the array
-  before_filter :authorize, only: [:index, :show, :update]
+  before_filter :authorize, only: [:index, :show, :edit]
 
   def index
-    # send to page to show all ballots TODO
-    # if moderator, show all ballots for ballots created
-    # if voter, show all ballots that user has submitted
-    # if admin, show all ballots for everybody
-    
-    
-    
+    @ballots = current_user.ballots
   end
   
   def show
