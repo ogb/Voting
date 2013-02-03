@@ -1,0 +1,22 @@
+
+
+<h1>Ballots!!!!</h1>
+
+<table>
+  <tr>
+    <th>title</th>
+    <th>end_time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+	<% @ballots.each do |ballot| %>
+		<tr>
+			<td>< %= ballot.title %></td>
+			<td>< %= ballot.end_time %></td>
+			<td>< %= link_to 'show', ballot %></td>
+		</tr>
+	<% end %>
+
+</table>
