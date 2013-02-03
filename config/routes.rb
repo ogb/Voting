@@ -1,6 +1,6 @@
 VotingSite::Application.routes.draw do 
   
-  resources :votes
+  resources :votes, only: [:index]
   resources :ballots
   resources :users
   resources :sessions, only: [:new, :create, :destroy]

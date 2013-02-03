@@ -1,7 +1,7 @@
 class VotesController < ApplicationController
 
   # TODO add all functions to the array
-  before_filter :authorize, only: [:index, :show, :update]
+  before_filter :authorize, only: [:index]
 
 
 
@@ -15,43 +15,5 @@ class VotesController < ApplicationController
     
   end
   
-  def show
-    @vote = Vote.find_by_id(params[:id])
-    # render a page with a single vote on it
-    
-  end
-  
-  def new
-    # send to page to create new vote
-    
-    
-  end
-  
-  def create
-    # actually create a new vote
-    
-  end
-  
-  def edit
-    # send to page to edit votes
-    @vote = Vote.find_by_id(params[:id])
-    
-    
-  end
-  
-  def update
-    # update vote data, send back to show page
-    @vote = Vote.find_by_id(params[:id])
-
-    
-  end
-  
-  def destroy
-    # delete record, send to show page
-    @vote = Vote.find_by_id(params[:id])
-
-    
-    
-  end
 
 end

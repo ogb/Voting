@@ -6,7 +6,7 @@ class BallotsController < ApplicationController
   def index
     # send to page to show all ballots TODO
     # if moderator, show all ballots for ballots created
-    # if ballotr, show all ballots that user has submitted
+    # if voter, show all ballots that user has submitted
     # if admin, show all ballots for everybody
     
   end
