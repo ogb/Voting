@@ -3,17 +3,38 @@ class BallotsController < ApplicationController
   before_filter :check_session, only: [:index, :show, :edit, :new]
 
   def index
-    @ballots = current_user.ballots
+    if current_user.is? "moderator"
+      @ballots = current_user.ballots
+    elsif current_user.is? "voter"
+      @ballots = []
+      Ballot.all.each do |ballot|
+        @ballots << ballot if ballot.users.include?(current_user)
+      end
+    else
+      # TODO admin
+    end
   end
   
   def show
     @ballot = Ballot.find_by_id(params[:id])
     redirect_to current_user unless authorize(@ballot)
+    if current_user.is? "moderator"
+      
+      
+    elsif current_user.is? "voter"
+      
+    
+    else
+      # TODO admin
+    end
+    
+
 
   end
   
   def new
     # send to page to create new ballot
+    redirect_to current_user unless current_user.is? "moderator"
     @ballot = Ballot.new
   end
   
