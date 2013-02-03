@@ -19,12 +19,13 @@ class BallotsController < ApplicationController
   
   def new
     # send to page to create new ballot
-    
-    
+    @ballot = Ballot.new
   end
   
   def create
     # actually create a new ballot
+    @ballot = Ballot.new(params[:ballot])   
+    
     
   end
   
