@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   
-  before_filter :authorize, only: [:index, :show, :edit]
+  before_filter :check_session, only: [:index, :show, :edit]
   
   def new
     @user = User.new
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       session[:user_id] = @user.id
-      redirect_to :controller => "user", :action => "show", :id => @user.id
+      redirect_to @user
     else
       render "new"
     end
@@ -18,10 +18,12 @@ class UsersController < ApplicationController
   
   def show
    @user = User.find_by_id(params[:id])
+   redirect_to current_user unless authorize(@user)
   end
   
   def edit
     @user = User.find_by_id(params[:id])
+    redirect_to current_user unless authorize(@user)
   end
   
   def update
@@ -36,12 +38,9 @@ class UsersController < ApplicationController
   def index
     if current_user.is? "administrator"
       @users = User.all
-      render "index"
     else
       flash.now[:error] = "Not authorized"
     end
   end
-
-  # TODO implement delete/destroy when admins are set up
 
 end

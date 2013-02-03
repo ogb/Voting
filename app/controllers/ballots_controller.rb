@@ -1,6 +1,6 @@
 class BallotsController < ApplicationController
 
-  before_filter :authorize, only: [:index, :show, :edit, :new]
+  before_filter :check_session, only: [:index, :show, :edit, :new]
 
   def index
     @ballots = current_user.ballots
@@ -8,7 +8,7 @@ class BallotsController < ApplicationController
   
   def show
     @ballot = Ballot.find_by_id(params[:id])
-    
+    redirect_to current_user unless authorize(@ballot)
 
   end
   
@@ -27,14 +27,14 @@ class BallotsController < ApplicationController
   def edit
     # send to page to edit ballots
     @ballot = Ballot.find_by_id(params[:id])
-    
+    redirect_to current_user unless authorize(@ballot)
     
   end
   
   def update
     # update ballot data, send back to show page
     @ballot = Ballot.find_by_id(params[:id])
-
+    
     
   end
   
@@ -42,7 +42,6 @@ class BallotsController < ApplicationController
     # delete record, send to show page
     @ballot = Ballot.find_by_id(params[:id])
 
-    
     
   end
 

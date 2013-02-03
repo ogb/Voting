@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
 
-  before_filter :authorize, only: [:index]
+  before_filter :check_session, only: [:index]
 
   def index
     # if moderator, show all votes for ballots created
