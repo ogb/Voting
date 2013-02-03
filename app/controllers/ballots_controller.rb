@@ -9,14 +9,12 @@ class BallotsController < ApplicationController
     # if voter, show all ballots that user has submitted
     # if admin, show all ballots for everybody
     
+    
+    
   end
   
   def show
     @ballot = Ballot.find_by_id(params[:id])
-    # render a page with a single ballot on it
-    
-    
-    
   end
   
   def new

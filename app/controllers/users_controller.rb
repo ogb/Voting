@@ -34,8 +34,12 @@ class UsersController < ApplicationController
   end
   
   def index
-  
-  
+    if current_user.is? "administrator"
+      @users = User.all
+      render "index"
+    else
+      flash.now[:error] = "Not authorized"
+    end
   end
 
   # TODO implement delete/destroy when admins are set up
