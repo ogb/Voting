@@ -1,17 +1,22 @@
 class BallotsController < ApplicationController
 
-  before_filter :check_session, only: [:index, :show, :edit, :new]
+  before_filter :check_session, only: [ :index, :show, :edit, :new ]
 
   def index
-    if current_user.is? "moderator"
+    if current_user.is? :moderator
       @ballots = current_user.ballots
-    elsif current_user.is? "voter"
+      render "index" and return
+    elsif current_user.is? :voter
       @ballots = []
       Ballot.all.each do |ballot|
         @ballots << ballot if ballot.users.include?(current_user)
       end
+      if @ballots.count.zero?
+        redirect_to current_user, notice: "No available ballots"
+      else
+      	render "index" and return
+      end
     else
-    
       # TODO admin
     end
   end
@@ -41,7 +46,7 @@ class BallotsController < ApplicationController
     # send to page to edit ballots
     @ballot = Ballot.find_by_id(params[:id])
     redirect_to current_user unless authorize(@ballot)
-    @ballot.votes.each { |v| redirect_to @ballot notice: "You have already voted on this ballot." if current_user.votes.include?(v) }
+    @ballot.votes.each { |v| redirect_to @ballot, notice: "You have already voted on this ballot." if current_user.votes.include?(v) }
   end
   
   def update
@@ -58,7 +63,7 @@ class BallotsController < ApplicationController
       end
     elsif current_user.is? "voter"
       # find selected candidate and create new vote model for it
-      @ballot.votes.each { |v| redirect_to @ballot notice: "You have already voted on this ballot." if current_user.votes.include?(v) }
+      @ballot.votes.each { |v| redirect_to @ballot, notice: "You have already voted on this ballot." if current_user.votes.include?(v) }
       candidate = Candidate.find(params[:candidates][:selected])
       redirect_to @ballot, alert: "Could not find candidate" if candidate.nil?
       vote = Vote.new({ :value => 1 })

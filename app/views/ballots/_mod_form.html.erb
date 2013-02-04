@@ -1,12 +1,12 @@
 
-<div id="mod-ballot-form" class="span6 offset3" >
+<div id="mod-ballot-form" class="span8 offset2" >
 <%= simple_form_for @ballot do |f| %>
 	<%= f.label :title %>
 	<%= f.text_field :title %>
 	<%= f.label :description %>
 	<%= f.text_area :description %>
 	<%= f.label :end_time %>
-	<%= f.date_time :end_time %>
+	<%= f.text_field :end_time, class: "datepicker" %>
 	<%= f.label :voter_input %>
 	<%= f.text_area :voter_input, hint: "Enter one voter email on each line." %>
 	<%= f.label :candidate_input %>

@@ -36,7 +36,7 @@
   </head>
   <body>
 	
-	<% if current_user %>
+	<% if current_user -%>
 	<!-- TODO move this to a partial -->
     <div class="navbar navbar-fluid-top">
       <div class="navbar-inner">
@@ -51,8 +51,8 @@
           <div class="container-fluid nav-collapse">
             <ul class="nav">
            	  <li><%= link_to "My Information", current_user %></li>
-           	  <li><%= link_to "Ballots", :controller => :ballot, :action => :index %></li>
-              <li><%= link_to "Votes", :controller => :vote, :action => :index %></li>
+           	  <li><%= link_to "Ballots", "/ballots" %></li>
+              <li><%= link_to "Votes", "/votes" %></li>
               <li><%= link_to "Log Out", logout_path  %></li>
             </ul>
           </div><!--/.nav-collapse -->

@@ -2,17 +2,5 @@
 
 
 <div id="mod-ballot-form" class="span6 offset3" >
-<%= simple_form_for @ballot do |f| %>
-	<%= f.label :title %>
-	<%= f.text_field :title %>
-	<%= f.label :description %>
-	<%= f.text_area :description %>
-	<%= f.label :end_time %>
-	<%= f.date_time :end_time %>
-	<%= f.label :voter_input %>
-	<%= f.text_area :voter_input, hint: "Enter one voter email on each line." %>
-	<%= f.label :candidate_input %>
-	<%= f.text_area :candidate_input, hint: "Enter one candidate option on each line." %>
-	<%= f.button :submit %>
-<% end %>
+    <%= render "mod_form" %>
 </div>

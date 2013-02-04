@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :firstname, :lastname, :roles_mask, :password_digest, :password
   
-  validates :email, presence: true, format: { with: valid_email_regex }, uniqueness: { case_sensitive: false }
+  validates :email, presence: true, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }, uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
   
   before_save { |user| user.email = email.downcase }

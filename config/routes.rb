@@ -2,15 +2,15 @@ VotingSite::Application.routes.draw do
   
   resources :ballots
   resources :users
-  resources :sessions, only: [:new, :create, :destroy]
 
   # TODO match "signup", to: "users#new", as: "signup"
-  match "/login", to: "sessions#new", as: "login"
-  match "/logout", to: "sessions#destroy", as: "logout"
+  get "login" => "sessions#new", as: "login"
+  get "logout" => "sessions#destroy", as: "logout"
 
-  match "votes/index", to: "votes#index"
-
+  get "votes", to: "votes#index"
   root to: "sessions#new"
+ 
+  resources :sessions
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -2,13 +2,12 @@
 <div id="signup" class="span6 offset3" >
 	<%= simple_form_for(@user, :html => {:class => 'form-vertical' }) do |f| %>
 	<fieldset>
-		<% if f.error_messages %><div class="well" ><%= f.error_messages %></div><% end %>
-		<%= f.input :firstname, @user.firstname label: "First Name", wrapper_html: { class: 'field' } %>
-		<%= f.input :lastname, @user.lastname label: "Last Name", wrapper_html: { class: 'field' } %>
-		<%= f.input :email, @user.email label: "Email", wrapper_html: { class: 'field' } %>
-		<%= f.input :password, @user.password label: "Password", wrapper_html: { class: 'field' } %>
+		<%= f.input :firstname, label: "First Name", wrapper_html: { class: 'field' } %>
+		<%= f.input :lastname, label: "Last Name", wrapper_html: { class: 'field' } %>
+		<%= f.input :email, label: "Email", wrapper_html: { class: 'field' } %>
+		<%= f.input :password, label: "Password", wrapper_html: { class: 'field' } %>
 		<div class="actions" ><%= f.button :submit %></div>
 	</fieldset>
 	<% end %>
-	<%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" } if current_user.is? "moderator" %>
+	<%= link_to "Delete", user, method: :delete, data: { confirm: "You sure?" } if current_user.is? "moderator" %>
 </div>

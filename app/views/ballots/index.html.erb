@@ -2,6 +2,7 @@
 
 <div class="span6 offset3" id="ballots" >
 	<h3>Ballots</h3>
+	<div><%= link_to "Add ballot", "ballots/new" %></div>
 	<% if @ballots.count > 0 %>
 		<ul>
 			<% @ballots.each do |ballot| %>

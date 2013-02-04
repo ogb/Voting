@@ -3,9 +3,8 @@
   <h3> <% @ballot.title %> </h3>
   <p> <% @ballot.description %> </p>
   <p> <% @ballot.end_time %> </p>
-	
 	<ul>
-		<% @ballot.candiates.each do |c| %>
+		<% @ballot.candidates.each do |c| %>
 		 <li> data-description: "<% c.description %>" 
 					id: "<% c.id %>"
 				<span> <% c.title %></span>
