@@ -1,13 +1,19 @@
 
-<div class="span8 offset2 ballot">
+<div class="span8 offset2" id="ballot">
   <h3> <% @ballot.title %> </h3>
   <p> <% @ballot.description %> </p>
   <p> <% @ballot.end_time %> </p>
-  <div> class="ballot-options" >
-    <ul>
-      <% @ballot.votes.each do |v| %>
-       <li> <p> <% v.title %> </p> </li>
-      <% end %>
-    </ul>
-  </div>
+	
+	<ul>
+		<% @ballot.candiates.each do |c| %>
+		 <li> data-description: "<% c.description %>" 
+					id: "<% c.id %>"
+				<span> <% c.title %></span>
+			
+				<% if current_user.is? "moderator" or @ballot.public_results %>
+					<span> c.votes.count </span>
+				<% end %>
+		 </li>
+		<% end %>
+	</ul>
 </div>
