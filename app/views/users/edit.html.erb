@@ -10,4 +10,5 @@
 		<div class="actions" ><%= f.button :submit %></div>
 	</fieldset>
 	<% end %>
+	<%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" } if current_user.is? "moderator" %>
 </div>

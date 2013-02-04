@@ -2,7 +2,6 @@
 <div id="signup" class="span6 offset3" >
 	<%= simple_form_for(@user, :html => {:class => 'form-vertical' }) do |f| %>
 	<fieldset>
-		<% if f.error_messages %><div class="well" ><%= f.error_messages %></div><% end %>
 		<%= f.input :firstname, label: "First Name", wrapper_html: { class: 'field' } %>
 		<%= f.input :lastname, label: "Last Name", wrapper_html: { class: 'field' } %>
 		<%= f.input :email, label: "Email", wrapper_html: { class: 'field' } %>

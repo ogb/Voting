@@ -11,6 +11,7 @@ class BallotsController < ApplicationController
         @ballots << ballot if ballot.users.include?(current_user)
       end
     else
+    
       # TODO admin
     end
   end
@@ -45,9 +46,9 @@ class BallotsController < ApplicationController
   
   def update
     # update ballot data, send back to show page
+    @ballot = Ballot.find_by_id(params[:id])
     if current_user.is? "moderator"
       # update info for the ballot
-      @ballot = Ballot.find_by_id(params[:id])
       @ballot.update_voters(params[:voters_input])
       @ballot.update_candidates(params[:candidates_input])
       if @ballot.update_attributes(filter_params(params))
@@ -57,6 +58,7 @@ class BallotsController < ApplicationController
       end
     elsif current_user.is? "voter"
       # find selected candidate and create new vote model for it
+      @ballot.votes.each { |v| redirect_to @ballot notice: "You have already voted on this ballot." if current_user.votes.include?(v) }
       candidate = Candidate.find(params[:candidates][:selected])
       redirect_to @ballot, alert: "Could not find candidate" if candidate.nil?
       vote = Vote.new({ :value => 1 })
@@ -75,10 +77,15 @@ class BallotsController < ApplicationController
   end
   
   def destroy
-    # delete record, send to show page
     @ballot = Ballot.find_by_id(params[:id])
-    
-    
+    if current_user.ballots.include? @ballot
+      @ballot.destroy
+      flash.notice = "Deleted ballot"
+      redirect_to current_user
+    else
+      flash.notice = "Not authorized to delete ballot"
+      redirect_to current_user
+    end
   end
 
 end

@@ -8,7 +8,7 @@ VotingSite::Application.routes.draw do
   match "/login", to: "sessions#new", as: "login"
   match "/logout", to: "sessions#destroy", as: "logout"
 
-  # TODO use subroutes within user for ballots and voteoptions
+  match "votes/index", to: "votes#index"
 
   root to: "sessions#new"
 

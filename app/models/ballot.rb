@@ -13,7 +13,7 @@ class Ballot < ActiveRecord::Base
   
   
   def winner
-    VotingAlgorithms.new(:majority).winner(self.cadidates)
+    VotingAlgorithms.new(:majority).winner(self.candidates)
   end
   
   def update_voters text_area
@@ -21,30 +21,24 @@ class Ballot < ActiveRecord::Base
     # if not then create account + password and email that user
     # if yes then email that user with a link to the ballot
     # TODO
+    logger.debug { "voter input: #{text_area}" }
+    
   
   
   end
   
   def update_candidates text_area
-    
+    logger.debug { "voter input: #{text_area}" }
   
     
   
   end
   
-  def vote candidate
-    # create new vote for candidate from current user and save it
-  
-  end
-
 end
 
 #TODO
-# add fields to views (mod and voter)
 # write email function on user model to email them, params = ballot id (if nil then email login link, else send ballot link)
-# write update functions
 # write the rest of the views
-# write voting algorithms
 # run
 
 

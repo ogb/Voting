@@ -1,22 +1,16 @@
 
 
-<h1>Ballots!!!!</h1>
-
-<table>
-  <tr>
-    <th>title</th>
-    <th>end_time</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-	<% @ballots.each do |ballot| %>
-		<tr>
-			<td>< %= ballot.title %></td>
-			<td>< %= ballot.end_time %></td>
-			<td>< %= link_to 'show', ballot %></td>
-		</tr>
+<div class="span6 offset3" id="ballots" >
+	<h3>Ballots</h3>
+	<% if @ballots.count > 0 %>
+		<ul>
+			<% @ballots.each do |ballot| %>
+				<li>
+					<div><%= ballot.title %></div><br />
+					<div><%= ballot.end_time %></div><br />
+					<div><%= link_to "View Ballot", ballot %></div>
+				</li>
+			<% end %>
+		</ul>
 	<% end %>
-
-</table>
+</div>

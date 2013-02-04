@@ -1,0 +1,15 @@
+
+
+<div id="votes-list" class="span6 offset3" >
+	<h3>Votes</h3>
+	<% if @votes.count > 0 %>
+		<ul>
+			<% @votes.each do |v| %>
+				<li>
+					<div><%= v.candidate.title %></div><br />
+					<div><%= v.created_at %></div>
+				</li>
+			<% end %>
+		</ul>
+	<% end %>
+</div>

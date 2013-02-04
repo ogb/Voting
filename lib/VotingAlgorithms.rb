@@ -15,16 +15,16 @@ class VotingAlgorithms
   private
   
   def majority votes
-    submissions = Hash.new
+    submissions = {}
     votes.each do |vote|
-      if submissions.keys.include? vote.title
-        submissions[ vote.title.to_sym ] += 1;
+      if submissions[vote.candidate.title.to_sym]
+        submissions[vote.candidate.title.to_sym] << vote
       else
-        submissions[ vote.title.to_sym ] = 1;
-      end # if
-    end # each
-    return submissions.sort_by { |key, value| value }
-  end # majority(votes)
+        submissions[vote.candidate.title.to_sym] = [vote]
+      end
+    end
+    return submissions.sort_by { |candidate, votes| votes.count }.last
+  end
   
 end
 

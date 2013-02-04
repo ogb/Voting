@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   
-  before_filter :check_session, only: [:index, :show, :edit]
+  before_filter :check_session, only: [:index, :show, :edit, :new]
   
   def new
     @user = User.new
@@ -40,7 +40,17 @@ class UsersController < ApplicationController
       @users = User.all
     else
       flash.now[:error] = "Not authorized"
+      redirect_to current_user
     end
+  end
+  
+  def destroy
+    if current_user.is? "moderator"
+      User.find_by_id(params[:id]).destroy
+      flash.notice = "Deleted user"
+      redirect_to current_user
+    end
+  
   end
 
 end

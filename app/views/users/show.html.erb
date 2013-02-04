@@ -1,7 +1,16 @@
 
-<div class="span8 offset2" id="ballot">
-  <h3> <% @user.firstname %> </h3>
-  <p> <% @user.lastname %> </p>
-  <p> <% @user.email %> </p>
-	<p>< %= link_to "Edit", :controller => "user", :action => "edit", :id => @user.id %></p>
+<div class="span6 offset3" id="user-profile">
+  <h3><span><%= @user.firstname %></span> <span><%= @user.lastname %></span></h3>
+  <p><%= @user.email %></p>
+  <p><%= link_to "Edit", :controller => :user, :action => :edit, :id => @user.id %></p>
+  <% if @user.votes.count > 0 %>
+  	<ul>
+  		<% @user.votes.each |v| %>
+  			<li>
+  				<div class="vote-title" ><strong><%= v.candidate.title %></strong></div><br />
+  				<div class="vote-time" ><strong><%= v.created_at %></strong></div>
+  			</li> 	
+  		<% end %>
+  	</ul>
+  <% end %>
 </div>

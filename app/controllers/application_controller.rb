@@ -11,15 +11,14 @@ class ApplicationController < ActionController::Base
         return false
       else
       current_user.ballots.each do |ballot|
-        unless ballot.users.include?(current_user)
-          return false
-        end
+        return false unless ballot.users.include?(current_user)
       end
     end
     elsif obj.class == "User"
-      return false unless current_user.is? "moderator"
+      return false unless current_user.is? "moderator" or current_user == obj
     else
       # nothing TODO throw an error
+      logger.debug { "error authorizing: #{ obj.to_json }" }
     end
     return true
   end
