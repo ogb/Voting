@@ -18,18 +18,6 @@ class BallotsController < ApplicationController
   def show
     @ballot = Ballot.find_by_id(params[:id])
     redirect_to current_user unless authorize(@ballot)
-    if current_user.is? "moderator"
-      
-      
-    elsif current_user.is? "voter"
-      
-    
-    else
-      # TODO admin
-    end
-    
-
-
   end
   
   def new
@@ -40,9 +28,12 @@ class BallotsController < ApplicationController
   
   def create
     # actually create a new ballot
-    @ballot = Ballot.new(params[:ballot])   
-    
-    
+    @ballot = current_user.ballots.build(params[:ballot]) 
+    if @ballot.save
+      redirect_to @ballot
+    else
+      render "new"
+    end
   end
   
   def edit
@@ -64,6 +55,18 @@ class BallotsController < ApplicationController
     @ballot = Ballot.find_by_id(params[:id])
 
     
+  end
+  
+  def add_voters
+    
+  
+  
+  end
+  
+  def add_candidates
+  
+  
+  
   end
 
 end
