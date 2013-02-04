@@ -1,0 +1,7 @@
+
+<div class="span8 offset2" id="ballot">
+  <h3> <% @user.firstname %> </h3>
+  <p> <% @user.lastname %> </p>
+  <p> <% @user.email %> </p>
+	<p>< %= link_to "Edit", :controller => "user", :action => "edit", :id => @user.id %></p>
+</div>
