@@ -54,6 +54,8 @@ class BallotsController < ApplicationController
     @ballot = Ballot.find_by_id(params[:id])
     if current_user.is? "moderator"
       # update info for the ballot
+      current_user.ballots << @ballot
+      current_user.save
       @ballot.update_voters(params[:voters_input])
       @ballot.update_candidates(params[:candidates_input])
       if @ballot.update_attributes(filter_params(params))

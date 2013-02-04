@@ -15,17 +15,7 @@ class Ballot < ActiveRecord::Base
   
   
   def winner
-    #VotingAlgorithms.new(:majority).winner(self.candidates)
-   submissions = {}
-    self.votes.each do |vote|
-      if submissions[vote.candidate.title.to_sym]
-        submissions[vote.candidate.title.to_sym] << vote
-      else
-        submissions[vote.candidate.title.to_sym] = [vote]
-      end
-    end
-    return submissions.sort_by { |candidate, votes| votes.count }.last
-
+    majority(self.votes).last
   end
   
   def update_voters text_area
@@ -35,6 +25,19 @@ class Ballot < ActiveRecord::Base
     # TODO
     logger.debug { "voter input: #{text_area}" }
     # lines split by "\r\n" ex: "Alec\r\nOliver"   
+    text_area.split("\r\n").each do |email|
+      return false unless email.match /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+      user = User.find_by_email(email)
+      if user
+        
+      
+      else
+      
+      end
+      
+    
+    end
+    
   
   
   end
