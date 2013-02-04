@@ -6,10 +6,8 @@ class Ballot < ActiveRecord::Base
   has_many :candidates, dependent: :destroy
   has_many :votes, through: :candidates
   # this is ugly... but it avoids nested models in nested forms. we don't have time for that on the first iteration
-  serialize :voters_input
-  serialize :candidates_input
 
-  attr_accessible :algorithm, :description, :end_time, :title, :type, :public_results, :candidates_input, :voters_input
+  attr_accessible :algorithm, :description, :end_time, :title, :type, :public_results
   
   validates :title, presence: true
   
@@ -22,6 +20,8 @@ class Ballot < ActiveRecord::Base
     # loop over lines in text area, check if user w/ that email exists
     # if not then create account + password and email that user
     # if yes then email that user with a link to the ballot
+    # TODO
+  
   
   end
   
@@ -29,6 +29,11 @@ class Ballot < ActiveRecord::Base
     
   
     
+  
+  end
+  
+  def vote candidate
+    # create new vote for candidate from current user and save it
   
   end
 

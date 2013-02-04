@@ -1,12 +1,13 @@
 
-
-<div id="voter-form" >
+<div id="voter-form" class="span6 offset3" >
 	<%= simple_form_for @ballot do |f| %>
-		<strong><%= f.text_field :title, @ballot.title, :readonly => true %></strong>
-		<p><%= f.text_area :description, @ballot.description, :readonly => true %></p>
-		<p><%= f.text_field, @ballot.end_time.to_formatted_s(:long_ordinal), :readonly => true %></p>
+		<strong><%= f.text_field :title, input_html: { readonly: true, value: @ballot.title } %></strong>
+		<p><%= f.text_area :description, input_html: { readonly: true, value: @ballot.description } %></p>
+		<p><%= f.text_field :end_time, input_html: { readonly: true, value: @ballot.end_time.to_formatted_s(:long_ordinal) } %></p>
 		<strong>Candidates</strong>
-		<%= f.collection_select :  %>
-		<%= f.submit "Vote", class: "btn btn-primary" %>
+		<%= f.association :candidates, collection: @ballots.candidates.sort { |c| c.title }, label_method: :title, value_method: :id, as: :radio_buttons %>
+		<%= f.button :submit, label: "Vote", class: "btn btn-primary" %>
 	<% end %>
 </div>
+
+

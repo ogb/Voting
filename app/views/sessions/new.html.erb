@@ -3,8 +3,8 @@
 	<%= simple_form_for(:session, :url => sessions_path, :html => {:class => 'form-vertical' }) do |f| %>
 	<fieldset>
 		<% if f.error_messages %><div class="well" ><%= f.error_messages %></div><% end %>
-		<%= f.input :email, label: "Email", wrapper_html: { class: 'field' } %>
-		<%= f.input :password, label: "Password", wrapper_html: { class: 'field' } %>
+		<%= f.email_field :email, label: "Email", wrapper_html: { class: 'field' } %>
+		<%= f.password_field :password, label: "Password", wrapper_html: { class: 'field' } %>
 		<div class="actions" ><%= f.button :submit %></div>
 	</fieldset>
 	<% end %>
