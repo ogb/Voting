@@ -34,5 +34,10 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
   helper_method :current_user
+    
+  def valid_email_regex
+    /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  end
+  helper_method :valid_email_regex
   
 end
