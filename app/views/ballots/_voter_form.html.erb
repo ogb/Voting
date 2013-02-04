@@ -1,15 +1,16 @@
 
 
 <div id="voter-form" >
-	<h3><%= @ballot.title %></h3>
-	<p><%= @ballot.description %></p>
-	<p><%= @ballot.end_time.to_formatted_s(:long_ordinal) %></p>
-	<h4>Candidates</h4>
-	<hr />	
 	<%= form_for @ballot do |f| %>
-		<% @ballot.candidates.each do |c| %>
-			<%= f.radio_button :candidate, c.title %><%= c.title %><br />
-		<% end %>
+		<strong><%= f.text_field :title, @ballot.title, :readonly => true %></strong>
+		<p><%= f.text_area :description, @ballot.description, :readonly => true %></p>
+		<p><%= f.text_field, @ballot.end_time.to_formatted_s(:long_ordinal), :readonly => true %></p>
+		<strong>Candidates</strong>
+		<ul>
+			<% @ballot.candidates.each do |c| %>
+				<li><%= f.radio_button :candidate, c.title %><%= f.label c.title %></li>
+			<% end %>
+		</ul>
 		<%= f.submit "Vote", class: "btn btn-primary" %>
 	<% end %>
 </div>
