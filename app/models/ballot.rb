@@ -19,42 +19,37 @@ class Ballot < ActiveRecord::Base
   end
   
   def update_voters text_area
-    # loop over lines in text area, check if user w/ that email exists
-    # if not then create account + password and email that user
-    # if yes then email that user with a link to the ballot
-    # TODO
-    logger.debug { "voter input: #{text_area}" }
-    # lines split by "\r\n" ex: "Alec\r\nOliver"   
     text_area.split("\r\n").each do |email|
+      next if email.blank? or email.nil?
       return false unless email.match /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
       user = User.find_by_email(email)
       if user
-        
-      
+        self.users << user
+        UserMailer.send_vote_invitation(user, self).deliver
       else
-      
+        pass = rand(36**10).to_s(36)
+        user = User.new({ :email => email, :password => pass })
+        UserMailer.send_login_invitation(user).deliver
       end
-      
-    
     end
-    
-  
-  
+    self.save
   end
   
   def update_candidates text_area
-    logger.debug { "voter input: #{text_area}" }
-  
-    
-  
+    text_area.split("\r\n").each do |title|
+      next if title.blank? or title.nil?
+      candidate = Candidate.find_by_title(title)
+      unless candidate
+        candidate = Candidate.new({ :title => title })
+        candidate.ballot = self
+        self.candidates << candidate
+        candidate.save
+      end
+    end
+    self.save
   end
   
 end
-
-#TODO
-# write email function on user model to email them, params = ballot id (if nil then email login link, else send ballot link)
-# write the rest of the views
-# run
 
 
 

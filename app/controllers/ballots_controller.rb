@@ -56,8 +56,8 @@ class BallotsController < ApplicationController
       # update info for the ballot
       current_user.ballots << @ballot
       current_user.save
-      @ballot.update_voters(params[:voters_input])
-      @ballot.update_candidates(params[:candidates_input])
+      redirect_to @ballot, alert: "Invalid voter emails, check your input and try again" unless @ballot.update_voters(params[:voters_input])
+      redirect_to @ballot, alert: "Invalid candidate names, check your input and try again" unless @ballot.update_candidates(params[:candidates_input])
       if @ballot.update_attributes(filter_params(params))
         redirect_to @ballot, notice: "Updated ballot"
       else
