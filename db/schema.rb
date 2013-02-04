@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130203214256) do
+ActiveRecord::Schema.define(:version => 20130204022922) do
 
   create_table "ballots", :force => true do |t|
     t.string   "title"
@@ -19,9 +19,11 @@ ActiveRecord::Schema.define(:version => 20130203214256) do
     t.integer  "algorithm"
     t.integer  "type"
     t.datetime "end_time"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.boolean  "public_results"
+    t.string   "voter_input"
+    t.string   "candidate_input"
   end
 
   create_table "ballots_users", :id => false, :force => true do |t|
