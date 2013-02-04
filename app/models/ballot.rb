@@ -16,5 +16,13 @@ class Ballot < ActiveRecord::Base
   def winner
     VotingAlgorithms.new(:majority).winner(self.cadidates)
   end
+  
+  def add_voters
+  
+  end
+  
+  def add_candidates 
+  
+  end
 
 end

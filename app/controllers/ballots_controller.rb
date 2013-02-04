@@ -46,27 +46,21 @@ class BallotsController < ApplicationController
   def update
     # update ballot data, send back to show page
     @ballot = Ballot.find_by_id(params[:id])
+    if current_user.is? "moderator"
+      # update info for the ballot
     
+    elsif current_user.is? "voter"
+      # find selected candidate and create new vote model for it
+    
+    end
     
   end
   
   def destroy
     # delete record, send to show page
     @ballot = Ballot.find_by_id(params[:id])
-
     
-  end
-  
-  def add_voters
     
-  
-  
-  end
-  
-  def add_candidates
-  
-  
-  
   end
 
 end

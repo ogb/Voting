@@ -1,0 +1,15 @@
+
+
+<div id="voter-form" >
+	<h3><%= @ballot.title %></h3>
+	<p><%= @ballot.description %></p>
+	<p><%= @ballot.end_time.to_formatted_s(:long_ordinal) %></p>
+	<h4>Candidates</h4>
+	<hr />	
+	<%= form_for @ballot do |f| %>
+		<% @ballot.candidates.each do |c| %>
+			<%= f.radio_button :candidate, c.title %><%= c.title %><br />
+		<% end %>
+		<%= f.submit "Vote", class: "btn btn-primary" %>
+	<% end %>
+</div>
