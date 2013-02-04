@@ -5,10 +5,8 @@ class Ballot < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_many :candidates, dependent: :destroy
   has_many :votes, through: :candidates
-  accepts_nested_attributes_for :candidates, allow_destroy: true
-  accepts_nested_attributes_for :users, allow_destroy: false
 
-  attr_accessible :algorithm, :description, :end_time, :title, :type, :public_results, :candidates_attributes
+  attr_accessible :algorithm, :description, :end_time, :title, :type, :public_results, :candidates_input, :voters_input
   
   validates :title, presence: true
   
@@ -17,11 +15,13 @@ class Ballot < ActiveRecord::Base
     VotingAlgorithms.new(:majority).winner(self.cadidates)
   end
   
-  def add_voters
+  def update_voters text_area
+    
   
   end
   
-  def add_candidates 
+  def update_candidates text_area
+    
   
   end
 
