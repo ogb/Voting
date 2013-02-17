@@ -4,12 +4,15 @@
   <p><%= @user.email %></p>
   <p><%= link_to "Edit", "#{ @user.id }/edit" %></p>
   <% if @user.votes.count > 0 %>
+  <h4>My Recent Votes</h4>
+  <hr />
   	<ul>
-  		<% @user.votes.each do |v| %>
+  		<% @user.votes.sort[0..5].each do |v| %>
   			<li>
-  				<div class="vote-title" ><strong><%= v.candidate.title %></strong></div><br />
+  				<div class="vote-title" ><strong><%= v.candidate.title %></strong></div>
   				<div class="vote-time" ><strong><%= v.created_at %></strong></div>
-  			</li> 	
+  			</li>
+ 			<hr />
   		<% end %>
   	</ul>
   <% end %>

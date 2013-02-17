@@ -1,11 +1,10 @@
 
 <div id="voter-form" class="span8 offset2" >
 	<%= simple_form_for @ballot do |f| %>
-		<strong><%= f.text_field :title, disabled: true, value: @ballot.title %></strong>
-		<p><%= f.text_area :description, disabled: true, value: @ballot.description %></p>
-		<p><%= f.text_field :end_time, disabled: true, value: @ballot.end_time.to_formatted_s(:long_ordinal) %></p>
-		<strong>Candidates</strong>
-		<%= f.association :candidates, collection: @ballots.candidates.sort { |c| c.title }, label_method: :title, value_method: :id, as: :radio_buttons %>
+	<p><%= @ballot.description %></p>
+		<strong>Candidates</strong><br /><hr />
+		<%= f.association :candidates, collection: @ballot.candidates, as: :radio_buttons %>
+		<br />
 		<%= f.button :submit, label: "Vote" %>
 	<% end %>
 </div>

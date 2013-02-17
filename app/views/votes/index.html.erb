@@ -1,14 +1,16 @@
 
 
 <div id="votes-list" class="span6 offset3" >
-	<h3>Votes</h3>
+	<h3>My Votes</h3>
+	<hr />
 	<% if @votes.count > 0 %>
 		<ul>
 			<% @votes.each do |v| %>
 				<li>
-					<div><%= v.candidate.title %></div><br />
+					<div><%= v.candidate.title %></div>
 					<div><%= v.created_at %></div>
 				</li>
+				<hr />
 			<% end %>
 		</ul>
 	<% end %>

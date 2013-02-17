@@ -5,7 +5,8 @@ class BallotsController < ApplicationController
   def index
     if current_user.is? :moderator
       @ballots = current_user.ballots
-      render "index" and return
+      logger.debug @ballots
+      render "index"
     elsif current_user.is? :voter
       @ballots = []
       Ballot.all.each do |ballot|
@@ -14,9 +15,10 @@ class BallotsController < ApplicationController
       if @ballots.count.zero?
         redirect_to current_user, notice: "No available ballots"
       else
-      	render "index" and return
+      	render "index"
       end
     else
+      @ballots = Ballot.all
       # TODO admin
     end
   end
@@ -36,6 +38,8 @@ class BallotsController < ApplicationController
     # actually create a new ballot
     @ballot = current_user.ballots.build(params[:ballot]) 
     if @ballot.save
+      current_user.ballots << @ballot
+      current_user.save
       redirect_to @ballot
     else
       render "new"
@@ -45,8 +49,8 @@ class BallotsController < ApplicationController
   def edit
     # send to page to edit ballots
     @ballot = Ballot.find_by_id(params[:id])
-    redirect_to current_user unless authorize(@ballot)
-    @ballot.votes.each { |v| redirect_to @ballot, notice: "You have already voted on this ballot." if current_user.votes.include?(v) }
+    #redirect_to current_user unless authorize(@ballot)
+    # @ballot.votes.each { |v| redirect_to @ballot, notice: "You have already voted on this ballot." if current_user.votes.include?(v) }
   end
   
   def update
@@ -54,19 +58,18 @@ class BallotsController < ApplicationController
     @ballot = Ballot.find_by_id(params[:id])
     if current_user.is? "moderator"
       # update info for the ballot
-      current_user.ballots << @ballot
-      current_user.save
-      redirect_to @ballot, alert: "Invalid voter emails, check your input and try again" unless @ballot.update_voters(params[:voters_input])
-      redirect_to @ballot, alert: "Invalid candidate names, check your input and try again" unless @ballot.update_candidates(params[:candidates_input])
-      if @ballot.update_attributes(filter_params(params))
+      #redirect_to @ballot, alert: "Invalid voter emails, check your input and try again" and return unless @ballot.update_voters(params[:voters_input])
+      #redirect_to @ballot, alert: "Invalid candidate names, check your input and try again" and return unless @ballot.update_candidates(params[:candidates_input])
+      if @ballot.update_attributes(params[:ballot])
         redirect_to @ballot, notice: "Updated ballot"
       else
         render "edit"
       end
     elsif current_user.is? "voter"
       # find selected candidate and create new vote model for it
-      @ballot.votes.each { |v| redirect_to @ballot, notice: "You have already voted on this ballot." if current_user.votes.include?(v) }
-      candidate = Candidate.find(params[:candidates][:selected])
+      @ballot.votes.each { |v| redirect_to @ballot, alert: "You have already voted on this ballot." and return if current_user.votes.include?(v) }
+      logger.debug params
+      candidate = Candidate.find_by_id(params[:ballot][:candidate_ids])
       redirect_to @ballot, alert: "Could not find candidate" if candidate.nil?
       vote = Vote.new({ :value => 1 })
       vote.user = current_user

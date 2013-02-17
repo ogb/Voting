@@ -6,10 +6,15 @@ class Ballot < ActiveRecord::Base
   has_many :candidates, dependent: :destroy
   has_many :votes, through: :candidates
   # this is ugly... but it avoids nested models in nested forms. we don't have time for that on the first iteration
+  accepts_nested_attributes_for :candidates, allow_destroy: true
+  #accepts_nested_attributes_for :users, allow_destroy: false
 
-  attr_accessible :algorithm, :description, :end_time, :title, :type, :public_results, :voter_input, :candidate_input
 
-  attr_accessor :voter_input, :candidate_input	
+  attr_accessible :algorithm, :description, :end_time, :title, :type, :public_results, :candidates_attributes, :_destroy #,:voter_input, :candidate_input
+
+  attr_accessor :_destroy
+  
+  #attr_accessor :voter_input, :candidate_input	
   
   validates :title, presence: true
   
@@ -19,6 +24,7 @@ class Ballot < ActiveRecord::Base
   end
   
   def update_voters text_area
+    return # TODO
     text_area.split("\r\n").each do |email|
       next if email.blank? or email.nil?
       return false unless email.match /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -36,6 +42,7 @@ class Ballot < ActiveRecord::Base
   end
   
   def update_candidates text_area
+    return #TODO
     text_area.split("\r\n").each do |title|
       next if title.blank? or title.nil?
       candidate = Candidate.find_by_title(title)

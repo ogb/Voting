@@ -2,15 +2,18 @@
 
 <div class="span6 offset3" id="ballots" >
 	<h3>Ballots</h3>
-	<div><%= link_to "Add ballot", "ballots/new" %></div>
-	<% if @ballots.count > 0 %>
+	<div><%= link_to "Create Ballot", "ballots/new" %></div>
+	<hr />
+	<% unless @ballots.nil? or @ballots.count < 1 %>
 		<ul>
 			<% @ballots.each do |ballot| %>
 				<li>
-					<div><%= ballot.title %></div><br />
-					<div><%= ballot.end_time %></div><br />
+					<div><%= ballot.title %></div>
+					<div><%= ballot.end_time %></div>
 					<div><%= link_to "View Ballot", ballot %></div>
+					<div><%= link_to "Edit Ballot", { :action => :edit, :id => ballot} %></div>
 				</li>
+				<hr />
 			<% end %>
 		</ul>
 	<% end %>
