@@ -1,3 +1,47 @@
 // Place all the styles related to the votes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#vote-widgets {
+	margin: 20px 0 0 0 !important;
+}
+
+.vote-widget {
+	border-bottom: #EEE 2px solid;
+	height: 60px;
+	padding: 15px;
+	text-decoration: none !important;
+	color: #666 !important;
+	font-size: 16px;
+}
+
+.vote-widget:hover {
+	background-color: #EEE;
+	cursor: pointer;
+}
+
+.vote-title {
+	float: left;
+}
+
+.vote-time {
+	float: right;
+}
+
+.vote-email{
+	margin-top: 10px;
+	clear: both;
+	float: left;
+}
+
+.odd {
+	background-color: #FAFAFA;
+}
+
+.even {
+	background-color: auto;
+}
+
+.top {
+	border-top: 2px solid #F5F5F5;
+}

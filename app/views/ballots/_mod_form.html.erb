@@ -1,20 +1,24 @@
 
-<div id="mod-ballot-form" class="span6 offset3" >
-<%= simple_form_for @ballot do |f| %>
+<% # TODO add edit option to show voters as check boxes %>
+<div id="mod-ballot-form" >
+<%= simple_form_for @ballot, :html => {:class => 'form-horizontal' } do |f| %>
 	<%= f.label :title %>
-	<%= f.text_field :title %>
+	<%= f.text_field :title, required: true %>
+	<%= f.label :public_results %>
+	<%= f.check_box :public_results %>
 	<%= f.label :description %>
 	<%= f.text_area :description %>
 	<%= f.label :end_time %>
-	<%= f.text_field :end_time, class: "datepicker" %>
+	<%= f.text_field :end_time, class: "datetimepicker" %>
 	<hr />
 	<%= f.fields_for :candidates do |builder| %>
 	<%= render 'candidate_fields', f: builder %>
 	<% end %>
 	<%= link_to_add_fields "Add Candidate", f, :candidates %>
 	<hr />
-	<%= f.check_box :_destroy %>
+	<%= f.collection_check_boxes :user_ids, User.all.select { |u| u.is? "voter" }, :id, :email %>
 	<%= f.label :_destroy, "Remove Ballot" %>
-	<%= f.button :submit %>
+	<%= f.check_box :_destroy %>
+	<%= f.submit "Save", class: "btn" %>
 <% end %>
 </div>

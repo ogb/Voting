@@ -1,0 +1,10 @@
+<ul id="candidates" >
+	<% @ballot.winners.each_with_index do |c, i| %>
+		<li class="candidate <%= get_classes(i) %>" >
+		 	<span class="candidate-title" ><%= c.title %></span>
+			<% if current_user.is? "moderator" or @ballot.public_results %>
+				<span class="candidate-votes" ><%= c.votes.count %></span>
+			<% end %>
+		</li>
+	<% end %>
+</ul>

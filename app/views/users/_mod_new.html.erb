@@ -1,0 +1,8 @@
+<h5>Enter the moderator's info below. An email will be sent to them with their generated password and instructions to log in.</h5>
+<br />
+<%= simple_form_for @user, :html => {:class => 'form-horizontal' } do |f| %>
+	<%= f.input :firstname %>
+	<%= f.input :lastname %>
+	<%= f.input :email %>
+	<%= f.button :submit %>
+<% end %>

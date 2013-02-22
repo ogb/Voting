@@ -5,21 +5,14 @@ class BallotsController < ApplicationController
   def index
     if current_user.is? :moderator
       @ballots = current_user.ballots
-      logger.debug @ballots
-      render "index"
     elsif current_user.is? :voter
       @ballots = []
       Ballot.all.each do |ballot|
         @ballots << ballot if ballot.users.include?(current_user)
       end
-      if @ballots.count.zero?
-        redirect_to current_user, notice: "No available ballots"
-      else
-      	render "index"
-      end
+      redirect_to current_user, notice: "No available ballots" if @ballots.count.zero?
     else
       @ballots = Ballot.all
-      # TODO admin
     end
   end
   
@@ -36,7 +29,7 @@ class BallotsController < ApplicationController
   
   def create
     # actually create a new ballot
-    @ballot = current_user.ballots.build(params[:ballot]) 
+    @ballot = current_user.ballots.build(params[:ballot])
     if @ballot.save
       current_user.ballots << @ballot
       current_user.save
@@ -47,10 +40,8 @@ class BallotsController < ApplicationController
   end
   
   def edit
-    # send to page to edit ballots
     @ballot = Ballot.find_by_id(params[:id])
-    #redirect_to current_user unless authorize(@ballot)
-    # @ballot.votes.each { |v| redirect_to @ballot, notice: "You have already voted on this ballot." if current_user.votes.include?(v) }
+    redirect_to current_user, :alert => "Not Authorized" unless authorize(@ballot)
   end
   
   def update
@@ -58,28 +49,30 @@ class BallotsController < ApplicationController
     @ballot = Ballot.find_by_id(params[:id])
     if current_user.is? "moderator"
       # update info for the ballot
-      #redirect_to @ballot, alert: "Invalid voter emails, check your input and try again" and return unless @ballot.update_voters(params[:voters_input])
-      #redirect_to @ballot, alert: "Invalid candidate names, check your input and try again" and return unless @ballot.update_candidates(params[:candidates_input])
+      logger.debug params.inspect
+      if params[:ballot][:_destroy] == "1"
+        redirect_to :controller => :ballots, :action => :index and return if @ballot.nil?
+        @ballot.destroy
+        redirect_to :controller => :ballots, :action => :index, :notice => "Deleted ballot"
+        return
+      end
+      # TODO add the email functionality to email them that they have been added to a ballot
+
+
       if @ballot.update_attributes(params[:ballot])
+        unless current_user.ballots.include? @ballot # hack to fix simpleform's association issue
+          current_user.ballots << @ballot
+          current_user.save
+        end
         redirect_to @ballot, notice: "Updated ballot"
       else
         render "edit"
       end
     elsif current_user.is? "voter"
-      # find selected candidate and create new vote model for it
-      @ballot.votes.each { |v| redirect_to @ballot, alert: "You have already voted on this ballot." and return if current_user.votes.include?(v) }
-      logger.debug params
+      redirect_to @ballot, alert: "You have already voted on this ballot." and return if current_user.voted_on? @ballot
       candidate = Candidate.find_by_id(params[:ballot][:candidate_ids])
-      redirect_to @ballot, alert: "Could not find candidate" if candidate.nil?
-      vote = Vote.new({ :value => 1 })
-      vote.user = current_user
-      vote.candidate = candidate
-      if vote.save
-        candidate.votes << vote
-        current_user.votes << vote
-        candidate.save
-        current_user.save
-        redirect_to @ballot, notice: "Vote Saved"
+      if @ballot.cast_vote current_user, candidate
+        redirect_to :controller => :ballots, :action => :index, notice: "Vote Saved"
       else
         redirect_to @ballot, alert: "Could not save vote"
       end
@@ -90,11 +83,9 @@ class BallotsController < ApplicationController
     @ballot = Ballot.find_by_id(params[:id])
     if current_user.ballots.include? @ballot
       @ballot.destroy
-      flash.notice = "Deleted ballot"
-      redirect_to current_user
+      redirect_to current_user, :notice => "Deleted ballot"
     else
-      flash.notice = "Not authorized to delete ballot"
-      redirect_to current_user
+      redirect_to current_user, :alert => "Not authorized to delete ballot"
     end
   end
 

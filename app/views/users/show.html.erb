@@ -2,18 +2,18 @@
 <div class="span6 offset3" id="user-profile">
   <h3><span><%= @user.firstname %></span> <span><%= @user.lastname %></span></h3>
   <p><%= @user.email %></p>
-  <p><%= link_to "Edit", "#{ @user.id }/edit" %></p>
-  <% if @user.votes.count > 0 %>
+  <p><%= link_to "Edit", :controller => :users, :action => :edit, :id => @user %></p>
+  <% unless @user.votes.empty? %>
   <h4>My Recent Votes</h4>
-  <hr />
-  	<ul>
-  		<% @user.votes.sort[0..5].each do |v| %>
-  			<li>
-  				<div class="vote-title" ><strong><%= v.candidate.title %></strong></div>
-  				<div class="vote-time" ><strong><%= v.created_at %></strong></div>
-  			</li>
- 			<hr />
-  		<% end %>
-  	</ul>
+  	<ul id="vote-widgets" >
+      <% @user.votes.reverse[0..15].each_with_index do |v, i| %>
+        <%= link_to :controller => :ballots, :action => :show, :id => v.candidate.ballot do %>
+          <li class="vote-widget <%= get_classes(i) %>" >
+            <div class="vote-title" ><%= v.candidate.title %></div>
+            <div class="vote-time" ><%= v.created_at.to_formatted_s(:long) %></div>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
   <% end %>
 </div>

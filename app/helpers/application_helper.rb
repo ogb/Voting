@@ -9,5 +9,17 @@ module ApplicationHelper
     link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
+   def get_classes index
+    classes = ""
+    if index % 2 == 0
+      classes += "top " if index == 0
+      classes += "even"
+    else
+      classes += "odd"
+    end
+    return classes
+  end
+
+
 
 end

@@ -1,3 +1,108 @@
 // Place all the styles related to the ballots controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+input[type="checkbox"] {
+	position: relative;
+	display: block;
+	float: left;
+	margin: 10px;
+	clear: left;
+}
+
+label {
+	float: left;
+	clear: auto;
+}
+
+input[type="submit"] {
+	float: left;
+	clear: both;
+}
+
+input[type="text"] {
+	float: left;
+	clear: right;
+}
+
+#ballot-widgets {
+	margin: 20px 0 15px 0 !important;
+}
+
+.ballot-widget {
+	border-bottom: #EEE 2px solid;
+	height: 60px;
+	padding: 15px;
+	text-decoration: none !important;
+	color: #666 !important;
+	font-size: 16px;
+}
+
+.ballot-widget:hover {
+	background-color: #EEE;
+	cursor: pointer;
+}
+
+.ballot-title {
+	float: left;
+}
+
+.ballot-time {
+	float: right;
+}
+
+.ballot-winner {
+	clear: both;
+}
+
+.winner-title {
+	float: left;
+	margin-top: 20px;
+}
+
+.winner-votes {
+	float: right;
+	margin: 20px 0 0 0;
+}
+
+.top {
+	border-top: 2px solid #EEE;
+}
+
+form {
+	height: inherit;
+	width: inherit !important;
+}
+
+#mod-ballot-form {
+	margin-bottom: 35px;
+	width: inherit !important;
+}
+
+.candidate {
+	border-bottom: #EEE 2px solid;
+	height: 25px; /* TODO change this when we enable descriptions */
+	padding: 10px;
+	color: #666;
+	font-size: 16px;
+}
+
+.odd {
+	background-color: #FAFAFA;
+}
+
+.even {
+	background-color: auto;
+}
+
+.candidate-title {
+	float: left;
+}
+
+.candidate-votes {
+	float: right;
+}
+
+#candidates{
+	margin: 15px 0 15px 0 !important;
+}

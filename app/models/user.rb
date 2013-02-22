@@ -11,12 +11,15 @@ class User < ActiveRecord::Base
   
   validates :email, presence: true, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }, uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
-  
+
   before_save { |user| user.email = email.downcase }
-  
-  
 
-
+  def voted_on? ballot
+    ballot.votes.each do |v|
+      return true if self.votes.include?(v)
+    end
+    return false
+  end
 
   # use a bitmask to store the roles
   def roles=(roles)

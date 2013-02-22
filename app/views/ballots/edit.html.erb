@@ -1,8 +1,3 @@
 <div class="span6 offset3" id="ballot" >
-	<% if current_user.is? "moderator" %>
-		<%= render "mod_form" %>
-	<% end %>
-	<% if current_user.is? "voter" %>
-		<%= render "voter_form" %>
-	<% end %>
+  <%= render "mod_form" %>
 </div>

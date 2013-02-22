@@ -1,11 +1,16 @@
 
-<div id="voter-form" class="span8 offset2" >
-	<%= simple_form_for @ballot do |f| %>
+<div id="voter-form" class="span6 offset3" >
+	<%= simple_form_for @ballot, :html => {:class => 'form-horizontal' } do |f| %>
 	<p><%= @ballot.description %></p>
-		<strong>Candidates</strong><br /><hr />
-		<%= f.association :candidates, collection: @ballot.candidates, as: :radio_buttons %>
-		<br />
-		<%= f.button :submit, label: "Vote" %>
+		<% unless @ballot.candidates.empty? %>
+			<div id="voter-candidates" >
+				<%= f.association :candidates, collection: @ballot.candidates, as: :radio_buttons %>
+			</div>
+			<br />
+			<%= f.submit "Vote", class: "btn" %>
+		<% else %>
+			<h5>No candidates have been created for this ballot. Try again later.</h5>
+		<% end %>
 	<% end %>
 </div>
 

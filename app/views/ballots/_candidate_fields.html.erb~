@@ -1,0 +1,8 @@
+<fieldset>
+  <%= f.label :title, "Candidate" %><br />
+  <%= f.input :title %><br />
+  <%= f.label :description, "Description" %><br />
+  <%= f.text_area :description %><br />
+  <%= f.check_box :_destroy %>
+  <%= f.label :_destroy, "Remove Candidate" %>
+</fieldset>

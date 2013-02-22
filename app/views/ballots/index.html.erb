@@ -1,19 +1,33 @@
 
 
 <div class="span6 offset3" id="ballots" >
-	<h3>Ballots</h3>
-	<div><%= link_to "Create Ballot", "ballots/new" %></div>
-	<hr />
-	<% unless @ballots.nil? or @ballots.count < 1 %>
-		<ul>
-			<% @ballots.each do |ballot| %>
-				<li>
-					<div><%= ballot.title %></div>
-					<div><%= ballot.end_time %></div>
-					<div><%= link_to "View Ballot", ballot %></div>
-					<div><%= link_to "Edit Ballot", { :action => :edit, :id => ballot} %></div>
-				</li>
-				<hr />
+	<h3>My Ballots</h3>
+	<% if current_user.is? "moderator" %>
+		<%= link_to "Create Ballot", :controller => :ballots, :action => :new %>
+	<% end %>
+	<% unless @ballots.nil? or @ballots.empty? %>
+		<ul id="ballot-widgets" >
+			<% @ballots.sort.reverse.each_with_index do |ballot, i| %>
+				<%= link_to ballot do %>
+					<li class="ballot-widget <%= get_classes(i) %>" >
+						<div class="ballot-title" >
+							<%= ballot.title %>
+						</div>
+						<div class="ballot-time" >
+							Close Date: <%= ballot.end_time.to_formatted_s(:long) unless ballot.end_time.nil? %>
+						</div>
+						<% if !ballot.winner.nil? and (current_user.is? "moderator" or ballot.public_results) and !ballot.winner.votes.empty? %>
+							<div class="ballot-winner" >
+								<span class="winner-title" >
+									<%= ballot.winner.title %>
+								</span>
+								<span class="winner-votes" >
+									<%= ballot.winner.votes.count %>
+								</span>
+							</div>
+						<% end %>
+					</li>
+				<% end %>
 			<% end %>
 		</ul>
 	<% end %>

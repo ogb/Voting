@@ -15,4 +15,6 @@ jQuery ->
     event.preventDefault()
 
   $(document).on 'ready', (event) ->
-    $('.datepicker').datepicker()
+    $('.datetimepicker').datetimepicker(
+      dateFormat: 'yy-mm-dd'
+    )

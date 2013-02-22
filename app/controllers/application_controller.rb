@@ -1,24 +1,20 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-
-
-  
   
   def authorize obj = nil
-    if obj.class == "Ballot"
-      if !current_user.ballots.include?(obj)
-        return false
-      else
-      current_user.ballots.each do |ballot|
-        return false unless ballot.users.include?(current_user)
+    logger.debug obj.class.to_s
+    if obj.class.to_s == "Ballot"
+      if current_user.is? "voter"
+        return false unless obj.users.include? current_user
+      elsif current_user.is? "moderator"
+        return false unless current_user.ballots.include? obj
       end
-    end
-    elsif obj.class == "User"
+    elsif obj.class.to_s == "User"
       return false unless current_user.is? "moderator" or current_user == obj
     else
-      # nothing TODO throw an error
       logger.debug { "error authorizing: #{ obj.to_json }" }
+      return false
     end
     return true
   end

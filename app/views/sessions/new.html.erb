@@ -1,9 +1,7 @@
 <div id="login" class="span6 offset3" >
 	<h3>Log In</h3>
-	
-
-
 	<%= form_tag sessions_path, :method => :post do %>
+		<fieldset>
 		<div class="field" >
 			<%= label_tag :email %>
 			<%= email_field_tag :email, params[:email] %>
@@ -13,5 +11,6 @@
 			<%= password_field_tag :password %>
 		</div>
 		<div class="actions" ><%= submit_tag "Log In" %></div>
+		</fieldset>
 	<% end %>
 </div>

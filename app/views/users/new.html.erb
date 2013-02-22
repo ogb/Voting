@@ -1,12 +1,10 @@
 
 <div id="signup" class="span6 offset3" >
-	<%= simple_form_for(@user, :html => {:class => 'form-vertical' }) do |f| %>
-	<fieldset>
-		<%= f.input :firstname, label: "First Name", wrapper_html: { class: 'field' } %>
-		<%= f.input :lastname, label: "Last Name", wrapper_html: { class: 'field' } %>
-		<%= f.input :email, label: "Email", wrapper_html: { class: 'field' } %>
-		<%= f.input :password, label: "Password", wrapper_html: { class: 'field' } %>
-		<div class="actions" ><%= f.button :submit %></div>
-	</fieldset>
+	<% if current_user.is? "administrator" %>
+		<%= render "mod_new" %>
+	<% elsif current_user.is? "moderator" %>
+		<%= render "voter_new" %>
+	<% else %>
+		<% logger.debug "voter accessed signup page... this is an issue" %>
 	<% end %>
 </div>

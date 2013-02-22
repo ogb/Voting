@@ -1,0 +1,6 @@
+<h5>Enter the voter's email address below. An email will be sent to them with their generated password and instructions to log in.</h5>
+<br />
+<%= simple_form_for @user, :html => {:class => 'form-horizontal' } do |f| %>
+	<%= f.input :email %>
+	<%= f.submit "Invite", class: "btn" %>
+<% end %>

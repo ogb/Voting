@@ -1,16 +1,18 @@
 
 
 <div id="votes-list" class="span6 offset3" >
-	<h3>My Votes</h3>
-	<hr />
-	<% if @votes.count > 0 %>
-		<ul>
-			<% @votes.each do |v| %>
-				<li>
-					<div><%= v.candidate.title %></div>
-					<div><%= v.created_at %></div>
-				</li>
-				<hr />
+	<h3>Votes</h3>
+	<% unless @votes.empty? %>
+		<ul id="vote-widgets" >
+			<% logger.debug @votes.inspect %>
+			<% @votes.each_with_index do |v, i| %>
+				<%= link_to :controller => :ballots, :action => :show, :id => v.candidate.ballot do %>
+					<li class="vote-widget <%= get_classes(i) %>" >
+						<div class="vote-title" ><%= v.candidate.title %></div>
+						<div class="vote-time" ><%= v.created_at.to_formatted_s(:long) %></div>
+						<div class="vote-email" ><%= v.user.email %></div>
+					</li>
+				<% end %>
 			<% end %>
 		</ul>
 	<% end %>

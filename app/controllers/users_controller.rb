@@ -3,27 +3,40 @@ class UsersController < ApplicationController
   before_filter :check_session, only: [:index, :show, :edit, :new]
   
   def new
-    @user = User.new
+    if current_user.is? :moderator or current_user.is? :administrator
+      @user = User.new
+    else
+      redirect_to current_user, :alert => "Not authorized"
+    end
   end
 
   def create
-    @user = User.new(params[:user])
-    if @user.save
-      session[:user_id] = @user.id
-      redirect_to @user
+    if current_user.is? :moderator
+      @user = User.new({ :email => params[:user][:email] })
+      @user.roles = ["voter"]
+      @user.password = rand(32**16).to_s(32)
+      if @user.save
+        UserMailer.send_login_invitation(@user).deliver
+        redirect_to current_user, :notice => "An invitation has been emailed to #{ @user.email }"
+      else
+        render "new"
+      end
+    elsif current_user.is? :administrator
+      # TODO
     else
-      render "new"
+      redirect_to current_user, :alert => "Not authorized"
+      return
     end
   end
   
   def show
    @user = User.find_by_id(params[:id])
-   redirect_to current_user unless authorize(@user)
+   #redirect_to current_user and return unless authorize(@user)
   end
   
   def edit
     @user = User.find_by_id(params[:id])
-    redirect_to current_user unless authorize(@user)
+    #redirect_to current_user and return unless authorize(@user)
   end
   
   def update
@@ -39,18 +52,11 @@ class UsersController < ApplicationController
     if current_user.is? "administrator"
       @users = User.all
     else
-      flash.now[:error] = "Not authorized"
-      redirect_to current_user
+      redirect_to current_user, :alert => "Not authorized"
     end
   end
   
   def destroy
-    if current_user.is? "moderator"
-      User.find_by_id(params[:id]).destroy
-      flash.notice = "Deleted user"
-      redirect_to current_user
-    end
-  
   end
 
 end
