@@ -1,19 +1,19 @@
 <div id="login" class="span6 offset3" >
-	<%= form_tag sessions_path, :method => :post do %>
-		<fieldset>
+  <%= form_tag sessions_path, :method => :post do %>
+  <fieldset>
+    <%= label_tag :email %>
+    <%= email_field_tag :email, params[:email] %>
 
-		<div class="container">
-      <form class="form-signin">
-        <h2 class="form-signin-heading">Log in</h2>
-        <input type="text" class="input" placeholder="Email address">
-				<br></br>
-        <input type="password" class="input" placeholder="Password">
-				<div class="actions" >
-					<%= button_to('Login', submit_tag, :class => 'btn btn-large btn-primary') %>
-				</div>
-      </form>
-    </div> <!-- /container -->
+    <%= label_tag :password %>
+    <%= password_field_tag :password %>
+
+    <%= submit_tag "Login", :class => "btn btn-large btn-primary" %>
+
 		
-		</fieldset>
-	<% end %>
-</div>
+  </fieldset>
+<% end %>
+
+
+
+
+
