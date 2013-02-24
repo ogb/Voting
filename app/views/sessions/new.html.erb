@@ -1,16 +1,17 @@
 <div id="login" class="span6 offset3" >
   <%= form_tag sessions_path, :method => :post do %>
   <fieldset>
-    
+   
+    <%= image_tag "theNightsWatch2.jpg" %>
     <h2 class="form-signin-heading"> Login </h2>
 
     <%= label_tag :email, "Email:", :class => "text-info" %>
     <br></br>
-    <%= email_field_tag :email, params[:email], :class => "input-block" %>
+    <%= email_field_tag :email, params[:email], :class => "input-block", :placeholder => "Email address" %>
     <br></br>
     <%= label_tag :password, "Password:", :class => "text-info" %>
     <br></br>
-    <%= password_field_tag :password, :class => "input-block" %>
+    <%= password_field_tag :password, nil, :class => "input-block" %>
     <br></br>
     <%= submit_tag "Login", :class => "btn btn-large btn-primary" %>
 
