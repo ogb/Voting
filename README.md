@@ -1,5 +1,5 @@
 
-<h3>Interation 1 of the first project for CIS 422</h3>
+<h3>Interation 2 of the first project for CIS 422</h3>
 
 
 <strong>Todos:</strong>
