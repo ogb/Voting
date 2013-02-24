@@ -1,12 +1,17 @@
 <div id="login" class="span6 offset3" >
   <%= form_tag sessions_path, :method => :post do %>
   <fieldset>
-    <%= label_tag :email %>
-    <%= email_field_tag :email, params[:email] %>
+    
+    <h2 class="form-signin-heading"> Login </h2>
 
-    <%= label_tag :password %>
-    <%= password_field_tag :password %>
-
+    <%= label_tag :email, "Email:", :class => "text-info" %>
+    <br></br>
+    <%= email_field_tag :email, params[:email], :class => "input-block" %>
+    <br></br>
+    <%= label_tag :password, "Password:", :class => "text-info" %>
+    <br></br>
+    <%= password_field_tag :password, :class => "input-block" %>
+    <br></br>
     <%= submit_tag "Login", :class => "btn btn-large btn-primary" %>
 
 		
