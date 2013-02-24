@@ -6,8 +6,10 @@
       <form class="form-signin">
         <h2 class="form-signin-heading">Log in</h2>
         <input type="text" class="input" placeholder="Email address">
+				<br></br>
         <input type="password" class="input" placeholder="Password">
-				<div class="actions" ><button class="btn btn-large btn-primary" type="submit">Sign in</button>
+				<%= button_to('Login', submit_tag, :class => 'btn btn-large btn-primary') %>
+	
 				</div>
         
       </form>
