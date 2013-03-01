@@ -1,0 +1,25 @@
+<div id="login" class="span6 offset3" >
+  <%= form_tag sessions_path, :method => :post do %>
+  <fieldset>
+
+    <div class="container">
+        <form class="form-signin">
+          <h2 class="form-signin-heading">Log in</h2>
+          <input type="text" class="input" placeholder="Email address">
+				<br></br>
+          <input type="password" class="input" placeholder="Password">
+	  
+	  <div class="actions">
+	    <%= btn-large btn-primary' "Login" %>
+	  </div>
+				
+        </form>
+      </div> <!-- /container -->
+		
+  </fieldset>
+<% end %>
+
+
+
+
+

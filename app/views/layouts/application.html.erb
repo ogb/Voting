@@ -52,7 +52,7 @@
           <a class="brand" href="#">Voting Site</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
-           	  <li><a href="#" id="myInfo" class="btn" data-trigger="hover" data-placement="bottom" data-content="MY INFO" title="popover on bottom"  <%= link_to "My Information", current_user %></a></li>
+           	  <li><a href="#" id="myInfo" data-trigger="hover" data-placement="bottom" data-content="MY INFO" title="popover on bottom"  <%= link_to "My Information", current_user %></a></li>
               <% if current_user.is? "administrator" %>
                 <li><%= link_to "Add Moderator", "/users/new" %></li>
               <% end %>
